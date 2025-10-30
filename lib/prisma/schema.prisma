@@ -1,0 +1,27 @@
+model FollowerMessage {
+  id            String   @id @default(cuid())
+  instagramId   String   @unique
+  username      String
+  fullName      String?
+  messageSent   Boolean  @default(false)
+  sentAt        DateTime?
+  responded     Boolean  @default(false)
+  respondedAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([messageSent])
+  @@index([createdAt])
+}
+
+model AutomationLog {
+  id              String   @id @default(cuid())
+  action          String
+  followersFound  Int      @default(0)
+  messagesSent    Int      @default(0)
+  errors          Int      @default(0)
+  errorDetails    String?
+  createdAt       DateTime @default(now())
+  
+  @@index([createdAt])
+}
